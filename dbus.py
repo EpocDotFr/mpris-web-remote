@@ -3,7 +3,7 @@ from dbus_next import Message
 from typing import Optional
 
 
-class Dbus:
+class Mpris:
     bus: MessageBus
     interface: ProxyInterface
 
@@ -18,9 +18,9 @@ class Dbus:
         elif action == 'pause':
             await self.interface.call_pause()
 
-        return await self.get_current_state()
+        return 'playing' if action == 'play' else 'paused'
 
-    async def __aenter__(self):
+    async def __aenter__(self) -> 'Mpris':
         self.bus = await MessageBus().connect()
 
         reply = await self.bus.call(Message(
@@ -39,13 +39,32 @@ class Dbus:
                 break
 
         if not first_mpris_bus:
-            raise RuntimeError('No applicable bus found')
+            raise RuntimeError('No MPRIS2 bus found')
 
         self.interface = self.bus.get_proxy_object(
             first_mpris_bus,
             '/org/mpris/MediaPlayer2',
             await self.bus.introspect(first_mpris_bus, '/org/mpris/MediaPlayer2')
         ).get_interface('org.mpris.MediaPlayer2.Player')
+
+        return self
+
+    async def __aexit__(self, exc_type, exc_value, exc_traceback) -> None:
+        self.bus.disconnect()
+
+
+class Properties:
+    bus: MessageBus
+    interface: ProxyInterface
+
+    async def __aenter__(self) -> 'Properties':
+        self.bus = await MessageBus().connect()
+
+        self.interface = self.bus.get_proxy_object(
+            'org.freedesktop.DBus',
+            '/org/freedesktop/DBus',
+            await self.bus.introspect('org.freedesktop.DBus', '/org/freedesktop/DBus')
+        ).get_interface('org.freedesktop.DBus.Properties')
 
         return self
 
