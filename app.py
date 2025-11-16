@@ -7,10 +7,16 @@ app = Quart(__name__)
 
 @app.route('/')
 async def home():
-    async with dbus.Mpris() as d:
-        current_state = await d.get_current_state()
+    try:
+        async with dbus.Mpris() as d:
+            current_state = await d.get_current_state()
 
-    return await render_template('home.html', current_state=current_state)
+        message = None
+    except RuntimeError as e:
+        current_state = None
+        message = 'Please run an MPRIS-compatible software and refresh the page.'
+
+    return await render_template('home.html', current_state=current_state, message=message)
 
 
 @app.route('/updates')
