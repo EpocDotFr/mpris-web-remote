@@ -21,8 +21,8 @@ you covered. One button, one function: simplicity as a product. Plus zero instal
 
 ## Usage
 
-  1. Run any program which is MPRIS-compatible (Firefox, VLC, whatever)
-  2. `quart run`
+  1. `quart run`
+  2. Run any program which is MPRIS-compatible (Firefox, VLC, whatever)
   3. On another device connected to the same local network, navigate to `http://<ip>:8080`, where `<ip>` is the IP of the
      computer running this project
 
