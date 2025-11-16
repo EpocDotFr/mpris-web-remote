@@ -23,7 +23,7 @@ you covered. One button, one function: simplicity as a product. Plus zero instal
 
   1. `quart run`
   2. Run any program which is MPRIS-compatible (Firefox, VLC, whatever)
-  3. On another device connected to the same local network, navigate to `http://<ip>:8080`, where `<ip>` is the IP of the
+  3. On another device connected to the same network, navigate to `http://<name>.local:8080`, where `<name>` is the name of the
      computer running this project
 
 > [!CAUTION]
