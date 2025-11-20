@@ -24,7 +24,9 @@ you covered. One button, one function: simplicity as a product. Plus zero instal
   1. `quart run`
   2. Run any program which is MPRIS-compatible (Firefox, VLC, whatever). The first one found will be used
   3. On another device connected to the same network, navigate to `http://<name>.local:8080`, where `<name>` is the name
-     of the computer running this project
+     of the computer running this project (this leverages [mDNS](https://en.wikipedia.org/wiki/Multicast_DNS))
+
+## Deployment
 
 > [!CAUTION]
-> This project is not suitable for production use. You have been warned.
+> This project is NOT suitable for production use. Do NOT attempt to deploy for use through internet.
