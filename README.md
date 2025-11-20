@@ -12,6 +12,7 @@ you covered. One button, one function: simplicity as a product. Plus zero instal
 ## Prerequisites
 
   - Python >= 3.10 (developed using Python 3.12)
+  - A modern web browser
   - A Linux-based OS (this project leverages [D-Bus](https://en.wikipedia.org/wiki/D-Bus) and [MPRIS2](https://specifications.freedesktop.org/mpris/latest/))
 
 ## Installation
