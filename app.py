@@ -1,6 +1,5 @@
-from quart import Quart, render_template, jsonify, request, make_response
+from quart import Quart, render_template, jsonify, request
 import dbus
-import sse
 
 app = Quart(__name__)
 
@@ -17,39 +16,6 @@ async def home():
         message = 'Please run an MPRIS-compatible software and refresh the page.'
 
     return await render_template('home.html', current_state=current_state, message=message)
-
-
-@app.route('/updates')
-async def updates():
-    async def send_events():
-        # yield sse.message('playing', 'state-changed')
-        #
-        # sleep(2)
-        #
-        # yield sse.message('paused', 'state-changed')
-
-        yield sse.message('paused', 'state-changed')
-
-        def on_playback_status_changed(interface, properties, invalidated):
-            print(interface, properties, invalidated)
-
-        async with dbus.Properties() as d:
-            d.interface.on_properties_changed(on_playback_status_changed)
-
-            await d.bus.wait_for_disconnect()
-
-    response = await make_response(
-        send_events(),
-        {
-            'Content-Type': 'text/event-stream',
-            'Cache-Control': 'no-cache',
-            'Transfer-Encoding': 'chunked',
-        }
-    )
-
-    response.timeout = None
-
-    return response
 
 
 @app.route('/change-state', methods=['POST'])

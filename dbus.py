@@ -60,12 +60,3 @@ class Mpris(Dbus):
             '/org/mpris/MediaPlayer2',
             await self.bus.introspect(first_mpris_bus, '/org/mpris/MediaPlayer2')
         ).get_interface('org.mpris.MediaPlayer2.Player')
-
-
-class Properties(Dbus):
-    async def get_interface(self) -> ProxyInterface:
-        return self.bus.get_proxy_object(
-            'org.freedesktop.DBus',
-            '/org/freedesktop/DBus',
-            await self.bus.introspect('org.freedesktop.DBus', '/org/freedesktop/DBus')
-        ).get_interface('org.freedesktop.DBus.Properties')

@@ -70,12 +70,6 @@
                     body.dataset.state = data.new_state ?? '';
                 });
         });
-
-        /*const eventSource = new EventSource('{{ url_for('updates') }}');
-
-        eventSource.addEventListener('state-changed', e => {
-            body.dataset.state = e.data;
-        });*/
     </script>
 </head>
 <body data-state="{{ current_state or '' }}">
